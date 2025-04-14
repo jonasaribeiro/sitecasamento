@@ -1,0 +1,35 @@
+/* Sobrescreve os estilos padrões do Toastify */
+:root {
+  --toastify-color-light: #fff8f4;
+  --toastify-color-dark: var(--color-deep);
+  --toastify-color-info: #f8f4f0;
+  --toastify-color-success: #bb8d69;
+  --toastify-color-warning: #d45a32;
+  --toastify-color-error: #a5553d;
+  --toastify-font-family: var(--font-body);
+}
+
+.Toastify__toast {
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  background-color: var(--toastify-color-light);
+  color: var(--text-dark);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.Toastify__toast--warning {
+  border-left-color: var(--color-button-hover);
+}
+
+.Toastify__toast-body {
+  margin: 0;
+  padding: 0;
+}
+
+.Toastify__close-button {
+  color: var(--color-accent);
+}
+
+.Toastify__progress-bar {
+  background: var(--color-button);
+}

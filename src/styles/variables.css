@@ -1,0 +1,27 @@
+:root {
+  /* Paleta principal */
+  --color-background: #f1ece0;
+  --color-primary: #d45a32;
+  --color-secondary: #b9441e;
+  --color-accent: #9a3d2a;
+  --color-deep: #471d09;
+
+  /* Cor complementar suave */
+  --color-soft: #fff8f4;
+
+  /* Texto */
+  --text-dark: #2e2e2e;
+  --text-light: #ffffff;
+
+  /* Tipografia */
+  --font-title: "Segoe UI", sans-serif;
+  --font-body: "Arial", sans-serif;
+
+  /* Outros */
+  --radius-lg: 12px;
+  --radius-sm: 6px;
+
+  /* Botão */
+  --color-button: #d45a32;
+  --color-button-hover: #b9441e;
+}

@@ -1,0 +1,154 @@
+.container {
+  min-height: 100vh;
+  background-color: var(--color-background);
+  color: var(--text-dark);
+  padding: 32px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--color-secondary);
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--color-accent);
+  margin-top: 8px;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form {
+  width: 100%;
+  max-width: 420px;
+  margin-bottom: 24px;
+}
+
+.label {
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  display: block;
+  color: var(--color-deep);
+}
+
+.input {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.quizButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.quizButton {
+  background: var(--color-button);
+  color: var(--text-light);
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.quizButton:hover {
+  background: var(--color-button-hover);
+}
+
+.rankingSection {
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+}
+
+.rankingTitle {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  color: var(--color-deep);
+}
+
+.rankingGroup {
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+}
+
+.obrigatorio {
+  display: block;
+  font-size: 0.85rem;
+  color: #b9441e;
+  margin-top: 4px;
+}
+
+.quizCard {
+  background: var(--text-light);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  margin-top: 24px;
+  text-align: center;
+}
+
+.question {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+  color: var(--color-deep);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.optionButton {
+  background: var(--color-button);
+  color: var(--text-light);
+  border: none;
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.optionButton:hover {
+  background: var(--color-button-hover);
+}
+
+.quizButtonFinal {
+  background: var(--color-button);
+  color: var(--text-light);
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  width: 100%;
+  margin-top: 24px;
+}
+.quizButtonFinal:hover {
+  background: var(--color-button-hover);
+}
