@@ -3,15 +3,28 @@ import { useDropzone } from "react-dropzone";
 import styles from "./upload.module.css";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
-import VoltarHomeButton from "@/components/voltarhomebutton";
+import VoltarHomeButton from "../components/voltarhomebutton";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function UploadPage() {
   const [modalAberto, setModalAberto] = useState(false);
   const [previews, setPreviews] = useState<File[]>([]);
-  const [nome, setNome] = useState("");
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    setPreviews(acceptedFiles);
+    const maxSizeMB = 500;
+    const maxSizeBytes = maxSizeMB * 1024 * 1024;
+
+    const arquivosValidos = acceptedFiles.filter((file) => {
+      if (file.size > maxSizeBytes) {
+        toast.error(
+          `O arquivo "${file.name}" excede o limite de 500MB. Por favor, envie um arquivo menor.`
+        );
+        return false;
+      }
+      return true;
+    });
+
+    setPreviews(arquivosValidos);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -27,22 +40,28 @@ export default function UploadPage() {
     e.preventDefault();
     if (previews.length === 0) return;
 
-    const formData = new FormData();
-    formData.append("nome", nome);
-    previews.forEach((file) => formData.append("arquivos", file));
-
     try {
       NProgress.start();
-      await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+
+      for (const file of previews) {
+        const formData = new FormData();
+        formData.append("arquivo", file);
+
+        const response = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error("Erro no upload");
+        }
+      }
 
       setPreviews([]);
-      setNome("");
-      setModalAberto(true); // abre o modal
+      setModalAberto(true);
     } catch (error) {
-      alert("Erro ao enviar arquivos.");
+      alert("Erro ao enviar os arquivos.");
+      console.error(error);
     } finally {
       NProgress.done();
     }
@@ -58,16 +77,6 @@ export default function UploadPage() {
       </header>
 
       <form onSubmit={handleSubmit} className={styles.form}>
-        <label className={styles.label}>Seu nome (opcional):</label>
-        <input
-          type="text"
-          name="nome"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-          placeholder="Digite seu nome"
-          className={styles.input}
-        />
-
         <label className={styles.label}>Selecione fotos ou vídeos:</label>
         <div {...getRootProps()} className={styles.dropzone}>
           <input {...getInputProps()} />
@@ -99,10 +108,15 @@ export default function UploadPage() {
           })}
         </div>
 
-        <button type="submit" className={styles.button}>
+        <button
+          type="submit"
+          className={styles.button}
+          disabled={previews.length === 0}
+        >
           Enviar arquivos
         </button>
       </form>
+
       {modalAberto && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
@@ -123,6 +137,7 @@ export default function UploadPage() {
         </div>
       )}
       <VoltarHomeButton />
+      <ToastContainer />
     </main>
   );
 }

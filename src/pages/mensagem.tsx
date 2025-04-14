@@ -31,7 +31,7 @@ export default function MensagemPage() {
         }),
       });
 
-      toast.success("Mensagem enviada com sucesso! 🎉");
+      toast.success("Obrigado pela sua mensagem 💖 Os noivos vão adorar!");
 
       setMensagem("");
       setNome("");
@@ -64,7 +64,12 @@ export default function MensagemPage() {
           onChange={(e) => setMensagem(e.target.value)}
         />
 
-        <label className={styles.label}>Seu nome (opcional):</label>
+        <label className={styles.label}>
+          Seu nome (opcional):
+          <span className={styles.obrigatorio}>
+            (Coloque um nome que os noivos consigam identificar 😄)
+          </span>
+        </label>
         <input
           type="text"
           name="nome"

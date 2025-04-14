@@ -71,3 +71,10 @@
 .button:hover {
   background: var(--color-button-hover);
 }
+
+.obrigatorio {
+  display: block;
+  font-size: 0.85rem;
+  color: #b9441e;
+  margin-top: 4px;
+}

@@ -2,6 +2,8 @@
 
 # Data
 data/
+gcp/
+*.json
 
 # dependencies
 /node_modules
