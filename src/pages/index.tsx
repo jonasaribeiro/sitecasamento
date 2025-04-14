@@ -16,7 +16,7 @@ export default function Home() {
       emoji: "💬",
     },
     {
-      title: "Ver mural de fotos",
+      title: "Mural de fotos da recepção",
       description: "Veja os registros de todos os ângulos.",
       href: "/galeria",
       emoji: "🧱",
