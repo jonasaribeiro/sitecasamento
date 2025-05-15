@@ -1,6 +1,8 @@
+import Masonry from "react-masonry-css";
 import { useEffect, useState } from "react";
 import styles from "./galeria.module.css";
 import VoltarHomeButton from "../components/voltarhomebutton";
+import { motion, AnimatePresence } from "framer-motion";
 
 type GaleriaResponse = {
   imagens: string[];
@@ -21,7 +23,7 @@ export default function GaleriaPage() {
 
     setCarregando(true);
     try {
-      const res = await fetch(`/api/galeria?page=${pagina}&limit=15`);
+      const res = await fetch(`/api/galeria?page=${pagina}&limit=6`);
       const data: GaleriaResponse = await res.json();
 
       setFotos((prev) => [...prev, ...data.imagens]);
@@ -35,8 +37,14 @@ export default function GaleriaPage() {
   };
 
   useEffect(() => {
-    carregarMais(); // carrega a primeira página
+    carregarMais();
   }, []);
+
+  const breakpoints = {
+    default: 3,
+    310: 2,
+    180: 1,
+  };
 
   return (
     <main className={styles.container}>
@@ -47,17 +55,22 @@ export default function GaleriaPage() {
         </p>
       </header>
 
-      <div className={styles.grid}>
+      <Masonry
+        breakpointCols={breakpoints}
+        className={styles.masonryGrid}
+        columnClassName={styles.masonryColumn}
+      >
         {fotos.map((src, index) => (
           <img
             key={index}
             src={src}
             alt={`Foto ${index}`}
             className={styles.img}
+            loading="lazy"
             onClick={() => setImagemSelecionada(src)}
           />
         ))}
-      </div>
+      </Masonry>
 
       <div className={styles.actions}>
         <button
@@ -73,25 +86,38 @@ export default function GaleriaPage() {
         </button>
       </div>
 
-      {imagemSelecionada && (
-        <div
-          className={styles.modal}
-          onClick={() => setImagemSelecionada(null)}
-        >
-          <div
-            className={styles.modalContent}
-            onClick={(e) => e.stopPropagation()}
+      <AnimatePresence>
+        {imagemSelecionada && (
+          <motion.div
+            className={styles.modal}
+            onClick={() => setImagemSelecionada(null)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
-            <img src={imagemSelecionada} className={styles.modalImage} />
-            <button
-              className={styles.fechar}
-              onClick={() => setImagemSelecionada(null)}
+            <motion.div
+              className={styles.modalContent}
+              onClick={(e) => e.stopPropagation()}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.25 }}
             >
-              ✕
-            </button>
-          </div>
-        </div>
-      )}
+              <motion.img
+                src={imagemSelecionada}
+                className={styles.modalImage}
+                layoutId="zoom-image"
+              />
+              <button
+                className={styles.fechar}
+                onClick={() => setImagemSelecionada(null)}
+              >
+                ✕
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <VoltarHomeButton />
     </main>

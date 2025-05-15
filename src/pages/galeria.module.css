@@ -1,3 +1,7 @@
+:root {
+  --gallery-gap: 12px;
+}
+
 .container {
   padding: 24px 16px;
   background-color: var(--color-background);
@@ -24,24 +28,40 @@
   margin: 0 auto;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 12px;
+/* react-masonry-css classes */
+.masonryGrid {
+  display: flex;
+  gap: var(--gallery-gap);
   margin-bottom: 24px;
 }
 
+.masonryColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gallery-gap);
+}
+
+/* Imagens dentro da galeria */
 .img {
   width: 100%;
-  height: auto;
+  display: block;
   border-radius: 12px;
   object-fit: cover;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
 }
 
+.img:hover {
+  transform: scale(1.02);
+  cursor: pointer;
+}
+
+/* Botão carregar mais */
 .actions {
   text-align: center;
-  margin-bottom: 24px;
+  margin-top: 16px;
+  margin-bottom: 32px;
 }
 
 .button {
@@ -55,48 +75,59 @@
   transition: background 0.2s ease;
 }
 
+.button:hover:enabled {
+  background-color: var(--color-button-hover);
+}
+
 .button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
+/* Modal de zoom */
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999;
+  /* padding: 16px; */
+  height: 100vh;
 }
 
 .modalContent {
   position: relative;
   max-width: 90%;
   max-height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modalImage {
   max-width: 100%;
-  max-height: 100%;
+  max-height: 95vh;
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
 .fechar {
   position: absolute;
-  top: -12px;
-  right: -12px;
+  top: -16px;
+  right: -16px;
   background: var(--color-button);
   border: none;
   border-radius: 50%;
   color: white;
-  font-size: 1.2rem;
-  width: 32px;
-  height: 32px;
+  font-size: 1.3rem;
+  width: 36px;
+  height: 36px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
